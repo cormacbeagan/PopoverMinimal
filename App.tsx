@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {Button, StyleSheet, Text, View} from 'react-native';
 
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
@@ -9,13 +9,18 @@ enableScreens();
 const Stack = createNativeStackNavigator();
 
 const Screen1 = ({navigation}) => {
+  const [isVisible, setIsVisible] = useState(false);
   const onPress = () => {
+    setIsVisible(false);
     navigation.navigate('Screen2');
   };
   return (
     <View style={styles.screenView}>
       <Text style={styles.text}>Screen 1</Text>
-      <Popover debug from={<Button title="Popover" />}>
+      <Popover
+        isVisible={isVisible}
+        debug
+        from={<Button title="Popover" onPress={() => setIsVisible(true)} />}>
         <Button title="Screen2" onPress={onPress} />
       </Popover>
     </View>
@@ -23,13 +28,18 @@ const Screen1 = ({navigation}) => {
 };
 
 const Screen2 = ({navigation}) => {
+  const [isVisible, setIsVisible] = useState(false);
   const onPress = () => {
+    setIsVisible(false);
     navigation.navigate('Screen1');
   };
   return (
     <View style={styles.screenView}>
       <Text style={styles.text}>Screen 2 </Text>
-      <Popover debug from={<Button title="Popover" />}>
+      <Popover
+        isVisible={isVisible}
+        debug
+        from={<Button title="Popover" onPress={() => setIsVisible(true)} />}>
         <Button title="Screen1" onPress={onPress} />
       </Popover>
     </View>
